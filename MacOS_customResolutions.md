@@ -112,4 +112,4 @@ PS. In case you want to "decode" the string, it is something like this (needs to
 PS2. Don't forget to turn on the integrity protection `csrutil enable`
 
 #### References
-* [xxd info](http://www.linuxcommand.org/man_pages/xxd1.html)
+* [xxd info](https://linux.die.net/man/1/xxd)
