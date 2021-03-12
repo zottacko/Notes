@@ -122,5 +122,6 @@ PS2. Don't forget to turn on the integrity protection `csrutil enable`
 ## To Get the second monitor IODisplayEDID directly from ioreg 
 `ioreg -lw0 -r -c "IODisplayConnect" -d 2 | grep IODisplayEDID | awk -F "<" '{print $2}' | awk -F ">" '{print $1}' | head -2 | tail -1 | xxd -r -p | base64`
 
-ioreg -lw0 | grep \"EDID\" | sed "/[^<]*</s///" | xxd -p -r | strings -6
-ioreg -lw0 | grep IODisplayPrefsKey
+Depending on the string that comes up it will tell you the manufacturer of the display. It will not display in plain text.
+Assuming you have a Retina display, a string with LP in it means it's an LG.
+`ioreg -lw0 | grep \"EDID\" | sed "/[^<]*</s///" | xxd -p -r | strings -6`
