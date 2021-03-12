@@ -50,6 +50,9 @@ From the terminal or finder, navigate to `/System/Library/Displays/Contents/Reso
 
 Then, open a text editor as an admin (or get ready to be prompted for your password upo saving later). Open the file named `DisplayVendorProductID-yyyy`, where `yyyy` is the Display Product ID from above (e.g. `DisplayProductID-59f1`). Make sure there is no file extension. If this file doesn't exist, create it.
 
+As of MacOS Catalina, `/System/Library/Displays/Contents/Resources/Overrides/` is Not writable, so it is necesary to create the corresponding `DisplayVendorID-xxxx/DisplayVendorProductID-yyyy` on `/Library/Displays/Contents/Resources/Overrides/` (e.g. `/Library/Displays/Contents/Resources/Overrides/DisplayVendorID-1e6d/DisplayProductID-59f1`)
+
+
 **Fourth**, enter the DisplayProduct ID info.
 
 Other than the DisplayProductID and the DisplayVendorID (that are now in decimal instead of hex), that should be self-explanatory, the other things here are:
@@ -113,3 +116,11 @@ PS2. Don't forget to turn on the integrity protection `csrutil enable`
 
 #### References
 * [xxd info](https://linux.die.net/man/1/xxd)
+
+
+ 
+## To Get the second monitor IODisplayEDID directly from ioreg 
+`ioreg -lw0 -r -c "IODisplayConnect" -d 2 | grep IODisplayEDID | awk -F "<" '{print $2}' | awk -F ">" '{print $1}' | head -2 | tail -1 | xxd -r -p | base64`
+
+ioreg -lw0 | grep \"EDID\" | sed "/[^<]*</s///" | xxd -p -r | strings -6
+ioreg -lw0 | grep IODisplayPrefsKey
